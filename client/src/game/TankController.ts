@@ -20,7 +20,7 @@ export function createTankController(canvas: HTMLCanvasElement, engine: Engine) 
 	});
 
 	let mouseDown = false;
-	window.addEventListener('mousedown', e => {
+	canvas.addEventListener('mousedown', e => {
 		if (e.button === 0)
 			mouseDown = true;
 	});
