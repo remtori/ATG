@@ -6,9 +6,13 @@
 
 - Customizable: The table below show the advantage and disadvantage when increasing the component size
 
-| Component   | Advantage | Disadvantage |
-|-------------|-----------|--------------|
-| Tank size   | + Health<br> + Accuracy     <br> + Faster Cooldown Speed | - Movement Speed       <br> - Rotation Speed       |
-| Barrel Size | + Damage<br> + Bullet Health<br> + Bullet Size           | - Barrel Rotation Speed<br> - Slower Cooldown Time |
+| Component     | Advantage | Disadvantage |
+|---------------|-----------|--------------|
+| Tank Width    | + Health  <br> + Higher Cooldown Speed            | - Movement Speed       <br> - Rotation Speed |
+| Tank Length   | + Health  <br> + Accuracy<br> + Lower Recoil Impact            | - Movement Speed       <br> - Rotation Speed |
+| Barrel Width  | + Shell Damage  <br> + Shell Size <br> + Shell Health | - Movement Speed       <br> - Rotation Speed<br> - Barrel Rotation Speed<br> - Higher Cooldown Time |
+| Barrel Length | + Accuracy<br> + Shell Age                       | - Movement Speed       <br> - Rotation Speed<br> - Barrel Rotation Speed |
 
-- Overheating mechanism: Fire bullet increase the heat by some amount, if the heat excess a thresh hold, you can no longer fire
+- Overheating mechanism: When fire shell increase the heat by some amount, if the heat excess a thresh hold, you can no longer fire
+
+- Recoil: When fire a shell a recoil force is apply to the tank, the bigger the shell, the stronger the force. The force will be stronger if the fired shell is parallel to the tank. (TL;DR place the barrel perpendicular to the tank then fire)
