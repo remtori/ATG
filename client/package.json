@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/matter-js": "^0.14.4",
     "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.8",
     "typescript": "^3.9.5"
   },
   "dependencies": {

@@ -1,0 +1,13 @@
+.tank-stats-editor {
+	div.range-input {
+		display: flex;
+		justify-content: space-between;
+
+		input[type="range"] {
+			margin-top: 2px;
+			margin-left: 4px;
+		}
+	}
+
+	width: max-content;
+}

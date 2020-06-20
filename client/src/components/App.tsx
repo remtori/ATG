@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'preact/hooks';
 import { createHashHistory } from 'history';
 import { Router } from 'preact-router';
 
+import { TankStatsEditor } from './TankStatsEditor';
 import { runGameClient } from '../game/GameClient';
 
 export function App() {
@@ -16,7 +17,7 @@ export function App() {
 		<Fragment>
 			<canvas ref={cvs} width={640} height={480} />
 			<Router history={createHashHistory() as any}>
-
+				<TankStatsEditor path='/' />
 			</Router>
 		</Fragment>
 	);

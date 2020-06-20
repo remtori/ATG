@@ -1,6 +1,6 @@
 import { Tank } from './Tank';
 
-interface TankFactorySetting {
+export interface TankFactorySetting {
 	tankWidth: number;
 	tankLength: number;
 	barrelWidth: number;
