@@ -1,7 +1,9 @@
 import { h } from 'preact';
-import { useRef, useCallback } from 'preact/hooks';
-import { Formik, Form, Field, ErrorMessage, FormikState, FormikProps } from 'formik';
+import { Formik, Form, FormikProps } from 'formik';
+
 import { DEFAULT_TANK_SETTING, TankFactorySetting } from '../game/TankFactory';
+import { ColorPicker } from './ColorPicker';
+import { RangeInput } from './RangeInput';
 
 export function TankStatsEditor() {
 	return (
@@ -12,35 +14,16 @@ export function TankStatsEditor() {
 				setSubmitting(false);
 			}}
 		>
-			{({ isSubmitting, ...form }: FormikProps<TankFactorySetting>) => (
-				<Form class='tank-stats-editor'>
+			{(form: FormikProps<TankFactorySetting>) => (
+				<Form className='tank-stats-editor'>
 					<RangeInput displayName='Tank Width' name='tankWidth' min={20} max={200} form={form} />
 					<RangeInput displayName='Tank Length' name='tankLength' min={20} max={300} form={form} />
 					<RangeInput displayName='Barrel Width' name='barrelWidth' min={5} max={100} form={form} />
 					<RangeInput displayName='Barrel Length' name='barrelLength' min={5} max={200} form={form} />
-					<button type='submit' disabled={isSubmitting}>Submit</button>
+					<ColorPicker displayName='Tank Color' name='tank' form={form} />
+					<button type='submit' disabled={form.isSubmitting}>Submit</button>
 				</Form>
 			)}
 		</Formik>
 	)
-}
-
-function RangeInput({ max, min, form, name, displayName }: any) {
-	const inp = useRef<HTMLInputElement>();
-	return (
-		<div class='range-input'>
-			<label>{displayName}</label>
-			<div>
-				<input
-					ref={inp}
-					type='range'
-					min={min}
-					max={max}
-					onInput={() => { form.setFieldValue(name, inp.current.value) }}
-					value={form.values[name]}
-				/>
-				<Field type='number' min={min} max={max} name={name} />
-			</div>
-		</div>
-	);
 }

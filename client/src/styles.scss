@@ -1,13 +1,32 @@
 .tank-stats-editor {
-	div.range-input {
-		display: flex;
-		justify-content: space-between;
-
+	& > div {
 		input[type="range"] {
 			margin-top: 2px;
 			margin-left: 4px;
 		}
+
+		input[type="number"] {
+			width: 38px;
+		}
 	}
 
-	width: max-content;
+	.square-color {
+		width: 1em;
+		height: 1em;
+		display: inline-block;
+		margin-bottom: -3px;
+	}
+
+	.field-error {
+	}
+
+	.color-picker-wrapper {
+		position: relative;
+
+		& > div {
+			position: absolute;
+			left: 30px;
+			top: -200px;
+		}
+	}
 }
