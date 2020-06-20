@@ -1,10 +1,10 @@
 import { Body } from 'matter-js';
 
-export interface IRenderable {
+export interface Renderable {
 	render(ctx: CanvasRenderingContext2D): void;
 }
 
-export class Entity implements IRenderable {
+export class Entity implements Renderable {
 	body: Body;
 
 	constructor(body: Body) {

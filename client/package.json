@@ -7,6 +7,10 @@
     "start": "parcel serve index.html",
     "build": "parcel index.html"
   },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom": "preact/compat"
+  },
   "keywords": [],
   "author": "remtori <lqv.remtori@gmail.com>",
   "license": "MIT",
@@ -16,6 +20,10 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "matter-js": "^0.14.2"
+    "formik": "^2.1.4",
+    "history": "^5.0.0",
+    "matter-js": "^0.14.2",
+    "preact": "^10.4.4",
+    "preact-router": "^3.2.1"
   }
 }

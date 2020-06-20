@@ -8,6 +8,8 @@ export class Timer {
 
 	render = () => {};
 	update = (deltaTime: number) => {};
+	onStart = () => {};
+	onStop = () => {};
 
 	constructor(deltaTime = 1000 / 60) {
 		this.deltaTime = deltaTime;
@@ -15,7 +17,7 @@ export class Timer {
 			this.accumulatedTime += newTime - this.lastTime;
 			if (this.accumulatedTime > 1000) {
 				console.warn(
-					`Can keep up! Browser may just out of focus or the computer is just not fast enough, skipping ${Math.floor(this.accumulatedTime / this.deltaTime)} tick (${this.accumulatedTime}ms)`
+					`Can keep up! Browser may just out of focus or the machine is just not fast enough, skipping ${Math.floor(this.accumulatedTime / this.deltaTime)} tick (${this.accumulatedTime}ms)`
 				);
 				this.accumulatedTime = this.deltaTime;
 			}
@@ -32,10 +34,12 @@ export class Timer {
 	}
 
 	start() {
+		this.onStart();
 		this.handler = requestAnimationFrame(this.loop);
 	}
 
 	stop() {
 		cancelAnimationFrame(this.handler);
+		this.onStop();
 	}
 }

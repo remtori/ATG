@@ -1,5 +1,5 @@
-import { engine } from './store';
 import { Entity } from './Entity';
+import { engine } from './PhysicEngine';
 import { Events, World } from 'matter-js';
 
 const entities = new Map<number, Entity>();
@@ -41,7 +41,7 @@ export const EntityManager = {
 	scheduleRemove(entity: Entity) {
 		tobeRemoves.add(entity);
 	},
-	forEach(cb: (Entity) => void) {
+	forEach(cb: (entity: Entity) => void) {
 		entities.forEach(cb);
 	}
 };
