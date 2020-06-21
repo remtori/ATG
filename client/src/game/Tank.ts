@@ -49,7 +49,6 @@ export class Tank extends DamageableEntity {
 		);
 
 		this.stats = stats;
-		console.log(stats);
 	}
 
 	render(ctx: CanvasRenderingContext2D) {

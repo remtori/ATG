@@ -14,7 +14,7 @@ export function createTankController(canvas: HTMLCanvasElement, engine: Engine) 
 
 	let mX = 0;
 	let mY = 0;
-	canvas.addEventListener('mousemove', e => {
+	window.addEventListener('mousemove', e => {
 		mX = Math.round(e.offsetX / scale);
 		mY = Math.round(e.offsetY / scale);
 	});
