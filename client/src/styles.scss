@@ -1,3 +1,29 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+// body {
+// 	text-align: center;
+// 	height: 100vh;
+// }
+
+// .game-canvas {
+// 	height: 100vh;
+// }
+
+.canvas-overlay {
+	position: absolute;
+	display: block;
+}
+
+.ui-wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .tank-stats-editor {
 	& > div {
 		input[type="range"] {
