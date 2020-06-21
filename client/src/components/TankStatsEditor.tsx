@@ -1,18 +1,25 @@
 import { h } from 'preact';
 import { Formik, Form, FormikProps } from 'formik';
 import { route } from 'preact-router';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { DEFAULT_TANK_SETTING, TankFactorySetting } from '../game/TankFactory';
+import { TankFactorySetting } from '../game/TankFactory';
 import { ColorPicker } from './ColorPicker';
 import { RangeInput } from './RangeInput';
 import { ScreenRoute } from './routes';
+import { RootState } from '../store';
+import { updateTankStats } from '../reducers/tankStats';
 
 export function TankStatsEditor() {
+
+	const dispatch = useDispatch();
+	const initialValue = useSelector<RootState, TankFactorySetting>(s => s.tankStats);
+
 	return (
-		<Formik
-			initialValues={DEFAULT_TANK_SETTING}
+		<Formik<TankFactorySetting>
+			initialValues={initialValue}
 			onSubmit={(values, { setSubmitting }) => {
-				alert(JSON.stringify(values, null, 2));
+				dispatch(updateTankStats(values));
 				setSubmitting(false);
 				route(ScreenRoute.InGame);
 			}}

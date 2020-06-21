@@ -1,13 +1,15 @@
-import { h, Fragment } from 'preact';
-import { useRef, useEffect, PropRef } from 'preact/hooks';
+import { h } from 'preact';
+import { useRef, useEffect } from 'preact/hooks';
 import { createHashHistory, createMemoryHistory } from 'history';
 import { Router, Route } from 'preact-router';
+import { Provider } from 'react-redux';
 
-import { TankStatsEditor } from './TankStatsEditor';
 import { runGameClient } from '../game/GameClient';
 import { ScreenRoute } from './routes';
 import { GameUI } from './GameUI';
 import { setupOverlay } from '../utils';
+import { MainMenu } from './MainMenu';
+import { store } from '../store';
 
 const history: any = process.env.NODE_ENV === 'production' ? createMemoryHistory() : createHashHistory();
 
@@ -36,16 +38,16 @@ export function App() {
 	}, []);
 
 	return (
-		<Fragment>
+		<Provider store={store}>
 			<canvas class='game-canvas' ref={cvs} width={640} height={480} />
 			<div class='canvas-overlay' ref={cvsOverlay}>
 				<div class='ui-wrapper'>
-					<Router history={history}>
-						<Route default component={TankStatsEditor} />
+					<Router history={history} path={ScreenRoute.MainMenu} >
+						<Route path={ScreenRoute.MainMenu} component={MainMenu} />
 						<Route path={ScreenRoute.InGame} overlay={cvsOverlay} component={GameUI} />
 					</Router>
 				</div>
 			</div>
-		</Fragment>
+		</Provider>
 	);
 }

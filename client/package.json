@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/matter-js": "^0.14.4",
     "@types/react-color": "^3.0.2",
+    "@types/react-redux": "^7.1.9",
     "parcel-bundler": "^1.12.4",
     "sass": "^1.26.8",
     "typescript": "^3.9.5"
@@ -27,6 +28,9 @@
     "matter-js": "^0.14.2",
     "preact": "^10.4.4",
     "preact-router": "^3.2.1",
-    "react-color": "^2.18.1"
+    "react-color": "^2.18.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   }
 }
