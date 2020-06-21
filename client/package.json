@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel serve index.html",
-    "build": "parcel index.html"
+    "build": "rm -rf ./dist && parcel build index.html"
   },
   "alias": {
     "react": "preact/compat",
