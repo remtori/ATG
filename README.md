@@ -16,3 +16,22 @@
 - Overheating mechanism: When fire shell increase the heat by some amount, if the heat excess a thresh hold, you can no longer fire
 
 - Recoil: When fire a shell a recoil force is apply to the tank, the bigger the shell, the stronger the force. The force will be stronger if the fired shell is parallel to the tank. (TL;DR place the barrel perpendicular to the tank then fire)
+
+### Player vs Computer
+
+- Repair pack to heal 10% health
+
+- Garage as checkpoint and switch to new tank
+
+## Levels (for PvC)
+
+### Level One
+
+- Mini boss that can only be beaten by fast moving tank
+
+- Mini boss that can only be beaten by slow strong - long range fire power tank
+
+- Final boss ...
+
+- Balanced tank is easier to clear the mobs
+
