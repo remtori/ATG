@@ -29,9 +29,7 @@
 
 - Mini boss that can only be beaten by fast moving tank
 
-- Mini boss that can only be beaten by slow strong - long range fire power tank
-
-- Final boss ...
+- Final boss that can only be beaten by slow strong - long range fire power tank
 
 - Balanced tank is easier to clear the mobs
 
