@@ -27,6 +27,7 @@
 }
 
 .tutorial-textbox {
+
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -34,14 +35,14 @@
 	color: #000;
 	background-color: #fff;
 	border-radius: .4em;
-
-	a {
-		text-decoration: none;
-		cursor: pointer;
-	}
+	user-select: none;
 
 	.skip-btn {
 		text-align: right;
 		padding-top: 1em;
+
+		span {
+			cursor: pointer;
+		}
 	}
 }

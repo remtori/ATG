@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'preact/hooks';
+import { useEffect, useReducer } from 'preact/hooks';
 import { Events } from 'matter-js';
 import { route } from 'preact-router';
 
