@@ -1,9 +1,13 @@
 import { Tank } from './Tank';
 import { Events, Engine } from 'matter-js';
 
-export function createTankController(canvas: HTMLCanvasElement, engine: Engine) {
-	let tank: Tank | undefined;
+let tank: Tank | undefined;
 
+export function getControlledTank() {
+	return tank;
+}
+
+export function createTankController(canvas: HTMLCanvasElement, engine: Engine) {
 	const keys: { [key: string]: boolean } = {};
 	window.addEventListener('keydown', e => {
 		keys[e.key] = true;
@@ -15,8 +19,8 @@ export function createTankController(canvas: HTMLCanvasElement, engine: Engine) 
 	let mX = 0;
 	let mY = 0;
 	window.addEventListener('mousemove', e => {
-		mX = Math.round(e.offsetX / scale);
-		mY = Math.round(e.offsetY / scale);
+		mX = (e.pageX - globalCanvasRect.x) * (canvas.width / globalCanvasRect.width);
+		mY = (e.pageY - globalCanvasRect.y) * (canvas.height / globalCanvasRect.height);
 	});
 
 	let mouseDown = false;

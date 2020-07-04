@@ -14,7 +14,6 @@ export function runGameClient(canvas: HTMLCanvasElement) {
 	}
 	gameClientStarted = true;
 
-	initScale(canvas);
 	const attachControl = createTankController(canvas, engine);
 	const context = canvas.getContext('2d');
 	const timer = new Timer(1000 / 50);
@@ -47,15 +46,3 @@ export function runGameClient(canvas: HTMLCanvasElement) {
 		attachControl,
 	};
 }
-
-function initScale(cvs: HTMLCanvasElement) {
-	function getActualScale() {
-		return cvs.getBoundingClientRect().height / cvs.height;
-	}
-
-	(window as any).scale = getActualScale();
-	window.addEventListener('resize', e => {
-		(window as any).scale = getActualScale();
-	});
-}
-
