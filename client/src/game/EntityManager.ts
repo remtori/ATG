@@ -43,5 +43,8 @@ export const EntityManager = {
 	},
 	forEach(cb: (entity: Entity) => void) {
 		entities.forEach(cb);
+	},
+	get(id: number) {
+		return entities.get(id);
 	}
 };
