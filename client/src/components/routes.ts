@@ -1,6 +1,5 @@
-export enum ScreenRoute {
+export enum Scene {
 	InGame = 'in-game',
-	MainMenu = 'main-menu',
-	TankStatsEditor = 'tank-stats-editor',
+	Tutorial = 'tutorial',
 	PauseScreen = 'pause-screen',
 }

@@ -52,7 +52,7 @@ export function createTank(
 			width: tankWidth,
 			length: tankLength,
 			health: minHealth + (tankWidth * tankLength) * 0.2,
-			rotationSpeed: maxRotateSpeed - (tankWidth * tankLength) * 0.00005 - (barrelWidth * barrelLength) * 0.00001,
+			rotationSpeed: maxRotateSpeed - (tankWidth * tankLength) * 0.000005 - (barrelWidth * barrelLength) * 0.000001,
 			movementSpeed: maxMovementSpeed - (tankWidth * tankLength) * 0.0005 - (barrelWidth * barrelLength) * 0.0001,
 			color: color.tank,
 		},
