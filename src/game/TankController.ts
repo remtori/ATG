@@ -1,5 +1,6 @@
 import { Tank } from './Tank';
 import { Events, Engine } from 'matter-js';
+import { engine } from './PhysicEngine';
 
 let tank: Tank | undefined;
 
@@ -7,8 +8,11 @@ export function getControlledTank() {
 	return tank;
 }
 
-export function createTankController(canvas: HTMLCanvasElement, engine: Engine) {
-	const keys: { [key: string]: boolean } = {};
+const keys: { [key: string]: boolean } = {};
+let mX = 0;
+let mY = 0;
+
+function init() {
 	window.addEventListener('keydown', e => {
 		keys[e.key] = true;
 	});
@@ -16,15 +20,13 @@ export function createTankController(canvas: HTMLCanvasElement, engine: Engine) 
 		keys[e.key] = false;
 	});
 
-	let mX = 0;
-	let mY = 0;
 	window.addEventListener('mousemove', e => {
-		mX = (e.pageX - globalCanvasRect.x) * (canvas.width / globalCanvasRect.width);
-		mY = (e.pageY - globalCanvasRect.y) * (canvas.height / globalCanvasRect.height);
+		mX = (e.pageX - globalCanvasRect.x) * (globalCanvasWidth / globalCanvasRect.width);
+		mY = (e.pageY - globalCanvasRect.y) * (globalCanvasHeight / globalCanvasRect.height);
 	});
 
 	let mouseDown = false;
-	canvas.addEventListener('mousedown', e => {
+	window.addEventListener('mousedown', e => {
 		if (e.button === 0)
 			mouseDown = true;
 	});
@@ -52,8 +54,10 @@ export function createTankController(canvas: HTMLCanvasElement, engine: Engine) 
 		if (mouseDown)
 			tank.shoot();
 	});
+}
 
-	return function attachControl(tankIn: Tank) {
-		tank = tankIn;
-	}
+let initialized = false;
+export function attachControl(tankIn: Tank) {
+	if (!initialized) init();
+	tank = tankIn;
 }

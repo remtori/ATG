@@ -11,19 +11,15 @@ export function useTutorial() {
 
 	const [ tutorialState, nextTutorialState ] = useReducer(s => s + 1, 0);
 
-	const skipTutorial = useCallback(() => {
-		route(Scene.InGame);
-	}, []);
-
 	useEffect(() => {
 		function onUpdate() {
 			const tank = getControlledTank();
 			if (!tank) return;
 
 			if (tutorials[tutorialState].isComplete(tank)) {
-				if (tutorialState + 1 == tutorials.length) {
-					skipTutorial();
-				}
+				if (tutorialState + 1 == tutorials.length)
+					route(Scene.InGame);
+
 				nextTutorialState(null);
 			}
 		}
@@ -35,6 +31,5 @@ export function useTutorial() {
 
 	return {
 		text: tutorials[tutorialState].text,
-		skip: skipTutorial
 	}
 }

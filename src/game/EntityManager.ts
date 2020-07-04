@@ -38,6 +38,10 @@ export const EntityManager = {
 		World.remove(engine.world, entity.body);
 		entities.delete(entity.body.id);
 	},
+	removeAll() {
+		entities.forEach(entity => World.remove(engine.world, entity.body));
+		entities.clear();
+	},
 	scheduleRemove(entity: Entity) {
 		tobeRemoves.add(entity);
 	},

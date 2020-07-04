@@ -1,70 +1,98 @@
-import { Tank } from './Tank';
+import { Tank, TankStats } from './Tank';
 
-export interface TankFactorySetting {
-	tankWidth: number;
-	tankLength: number;
-	barrelWidth: number;
-	barrelLength: number;
-	color: {
-		tank: string;
-		barrel: string;
-		shell: string;
-	}
+const tankCreator = (stats: TankStats) => (pos: [ number, number ]) => new Tank(pos, stats);
+
+export enum TankType {
+	MOBI = 1,
+	AVG  = 2,
+	ADC  = 3,
 };
 
-export const DEFAULT_TANK_SETTING: TankFactorySetting = {
-	tankWidth: 30,
-	tankLength: 50,
-	barrelWidth: 20,
-	barrelLength: 40,
-	color: {
-		tank: '#e00',
-		barrel: '#0e0',
-		shell: '#00f',
-	}
-};
-
-export function createTank(
-	{ tankWidth, tankLength, barrelLength, barrelWidth, color }: TankFactorySetting = DEFAULT_TANK_SETTING
-): Tank {
-	const maxMovementSpeed = 3;
-	const maxRotateSpeed = 0.1;
-	const maxBulletSpeed = 10;
-	const maxBarrelRotateSpeed = 0.25;
-	const minBulletSize = 5;
-	const minBulletAge = 50;
-	const minHealth = 50;
-	const minRecoilMultiplier = -0.01;
-	const minCooldownTime = 2;
-	const minCooldownSpeed = 1;
-	const minAccuracy = Math.PI / 12;
-
-	return new Tank({ x: 200, y: 200 }, {
+const tankFromType = {
+	[TankType.MOBI]: tankCreator({
 		shell: {
-			age: minBulletAge,
-			speed: maxBulletSpeed,
-			radius: minBulletSize,
+			age: 50,
+			speed: 10,
+			radius: 2,
 			health: 1,
-			damage: 1,
-			color: color.shell,
+			damage: 5,
+			color: '#00f',
 		},
 		tank: {
-			width: tankWidth,
-			length: tankLength,
-			health: minHealth + (tankWidth * tankLength) * 0.2,
-			rotationSpeed: maxRotateSpeed - (tankWidth * tankLength) * 0.000005 - (barrelWidth * barrelLength) * 0.000001,
-			movementSpeed: maxMovementSpeed - (tankWidth * tankLength) * 0.0005 - (barrelWidth * barrelLength) * 0.0001,
-			color: color.tank,
+			width: 30,
+			length: 40,
+			health: 100,
+			rotationSpeed: 0.075,
+			movementSpeed: 2,
+			color: '#0f0',
 		},
 		barrel: {
-			width: barrelWidth,
-			length: barrelLength,
-			accuracy: minAccuracy + tankLength * 0.0005 + barrelLength * 0.005,
-			recoilMultiplier: minRecoilMultiplier,
-			cdTime: minCooldownTime,
-			cdSpeed: minCooldownSpeed,
-			rotationSpeed: maxBarrelRotateSpeed - (barrelWidth * barrelLength) * 0.00005,
-			color: color.barrel,
+			width: 8,
+			length: 30,
+			accuracy: 1,
+			recoilMultiplier: -0.01,
+			cdTime: 5,
+			cdSpeed: 1,
+			rotationSpeed: 0.075,
+			color: '#f00',
 		},
-	});
-}
+	}),
+	[TankType.AVG]: tankCreator({
+		shell: {
+			age: 100,
+			speed: 7,
+			radius: 5,
+			health: 10,
+			damage: 55,
+			color: '#00f',
+		},
+		tank: {
+			width: 40,
+			length: 50,
+			health: 200,
+			rotationSpeed: 0.05,
+			movementSpeed: 1.5,
+			color: '#0f0',
+		},
+		barrel: {
+			width: 16,
+			length: 40,
+			accuracy: 1,
+			recoilMultiplier: -0.01,
+			cdTime: 25,
+			cdSpeed: 1,
+			rotationSpeed: 0.05,
+			color: '#f00',
+		},
+	}),
+	[TankType.ADC]: tankCreator({
+		shell: {
+			age: 300,
+			speed: 15,
+			radius: 9,
+			health: 15,
+			damage: 175,
+			color: '#00f',
+		},
+		tank: {
+			width: 60,
+			length: 80,
+			health: 300,
+			rotationSpeed: 0.02,
+			movementSpeed: 0.75,
+			color: '#0f0',
+		},
+		barrel: {
+			width: 20,
+			length: 60,
+			accuracy: 1,
+			recoilMultiplier: -0.01,
+			cdTime: 75,
+			cdSpeed: 1,
+			rotationSpeed: 0.02,
+			color: '#f00',
+		},
+	}),
+};
+
+export const createTankFromType = (pos: [ number, number ], type: TankType) => tankFromType[type](pos);

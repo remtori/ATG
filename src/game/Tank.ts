@@ -8,7 +8,7 @@ function clampAngle(angle: number): number {
 	return ((angle % twoPI) + twoPI) % twoPI;
 }
 
-interface TankStats {
+export interface TankStats {
 	shell: TankShellStats;
 	tank: {
 		width: number;
@@ -35,10 +35,10 @@ export class Tank extends DamageableEntity {
 	cooldown: number = 0;
 	barrelAngle: number = 0;
 
-	constructor(position: Vector, stats: TankStats) {
+	constructor(position: [ number, number ], stats: TankStats) {
 		super(
 			stats.tank.health,
-			Bodies.rectangle(position.x, position.y, stats.tank.length, stats.tank.width, {
+			Bodies.rectangle(position[0], position[1], stats.tank.length, stats.tank.width, {
 				density: 1,
 				friction: 0,
 				frictionStatic: 0,
