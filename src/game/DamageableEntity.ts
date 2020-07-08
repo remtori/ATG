@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity } from './Entities';
 import { Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
 

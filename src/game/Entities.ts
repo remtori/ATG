@@ -1,4 +1,5 @@
-import { Body } from 'matter-js';
+import { Body, Vector, World } from 'matter-js';
+import { engine } from './PhysicEngine';
 
 export interface Renderable {
 	render(ctx: CanvasRenderingContext2D): void;
