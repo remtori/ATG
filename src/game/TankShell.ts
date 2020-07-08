@@ -1,4 +1,4 @@
-import { Entity } from './Entities';
+import { Entity } from './Entity';
 import { DamageableEntity } from './DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';

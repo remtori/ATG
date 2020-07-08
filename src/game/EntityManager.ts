@@ -1,4 +1,4 @@
-import { Entity } from './Entities';
+import { Entity } from './Entity';
 import { engine } from './PhysicEngine';
 import { Events, World } from 'matter-js';
 

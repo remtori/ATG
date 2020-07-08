@@ -3,9 +3,9 @@ import { Tank, TankStats } from './Tank';
 const tankCreator = (stats: TankStats) => (pos: [ number, number ]) => new Tank(pos, stats);
 
 export enum TankType {
-	MOBI = 1,
-	AVG  = 2,
-	ADC  = 3,
+	MOBI = 'M',
+	AVG  = 'A',
+	ADC  = 'D',
 };
 
 const tankFromType = {
