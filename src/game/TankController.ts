@@ -35,6 +35,7 @@ function init() {
 			mouseDown = false;
 	})
 
+	const pos = { x: globalCanvasWidth / 2, y: globalCanvasHeight / 2 };
 	Events.on(engine, "beforeUpdate", e => {
 		if (!tank) return;
 
@@ -48,7 +49,7 @@ function init() {
 		else if (keys['d'])
 			tank.rotate(1);
 
-		const pos = tank.body.position;
+		// const pos = tank.body.position;
 		tank.barrelTargetAngle(Math.atan((mY - pos.y) / (mX - pos.x)) + Math.PI * (mX < pos.x ? 1 : 2));
 
 		if (mouseDown)
