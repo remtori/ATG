@@ -35,10 +35,10 @@ export class Tank extends DamageableEntity {
 	cooldown: number = 0;
 	barrelAngle: number = 0;
 
-	constructor(position: [ number, number ], stats: TankStats) {
+	constructor(x: number, y: number, stats: TankStats) {
 		super(
 			stats.tank.health,
-			Bodies.rectangle(position[0], position[1], stats.tank.length, stats.tank.width, {
+			Bodies.rectangle(x, y, stats.tank.length, stats.tank.width, {
 				density: 1,
 				friction: 0,
 				frictionStatic: 0,
@@ -129,7 +129,7 @@ export class Tank extends DamageableEntity {
 		const recoilForce = Vector.mult(velocity, this.stats.barrel.recoilMultiplier);
 		Body.applyForce(
 			this.body, this.body.position,
-			Vector.mult(recoilForce, (Math.abs(Math.cos(this.body.angle - angle)) + 0.01)),
+			Vector.mult(recoilForce, (Math.abs(Math.cos(this.body.angle - angle)) + 0.1)),
 		);
 
 		EntityManager.add(new TankShell(position, velocity, this.stats.shell));

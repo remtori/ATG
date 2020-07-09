@@ -3,14 +3,18 @@ import { Bodies } from 'matter-js';
 
 export class Wall extends Entity {
 
-	constructor(tileX: number, tileY: number, tileWidth = 1, tileHeight = 1) {
-		super(Bodies.rectangle(
-			tileX * 100, tileY * 100, 100 * tileWidth, 100 * tileHeight,
-			{ isStatic: true }
-		));
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+
+	constructor(x: number, y: number, w: number, h: number) {
+		super(Bodies.rectangle(x, y, w, h, { isStatic: true }));
+		Object.assign(this, { x, y, w, h });
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
-		ctx.fillRect(this.body.position.x, this.body.position.y, 100, 100);
+		ctx.fillStyle = '#b1b3b1';
+		ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
 	}
 }

@@ -1,6 +1,6 @@
 import { Tank, TankStats } from './Tank';
 
-const tankCreator = (stats: TankStats) => (pos: [ number, number ]) => new Tank(pos, stats);
+const tankCreator = (stats: TankStats) => (x: number, y: number) => new Tank(x, y, stats);
 
 export enum TankType {
 	MOBI = 'M',
@@ -29,7 +29,7 @@ const tankFromType = {
 		barrel: {
 			width: 8,
 			length: 30,
-			accuracy: 1,
+			accuracy: 0.8,
 			recoilMultiplier: -0.01,
 			cdTime: 5,
 			cdSpeed: 1,
@@ -57,8 +57,8 @@ const tankFromType = {
 		barrel: {
 			width: 16,
 			length: 40,
-			accuracy: 1,
-			recoilMultiplier: -0.01,
+			accuracy: 0.9,
+			recoilMultiplier: -0.5,
 			cdTime: 25,
 			cdSpeed: 1,
 			rotationSpeed: 0.05,
@@ -75,18 +75,18 @@ const tankFromType = {
 			color: '#00f',
 		},
 		tank: {
-			width: 60,
-			length: 80,
+			width: 55,
+			length: 70,
 			health: 300,
 			rotationSpeed: 0.02,
-			movementSpeed: 0.75,
+			movementSpeed: 1,
 			color: '#0f0',
 		},
 		barrel: {
 			width: 20,
 			length: 60,
-			accuracy: 1,
-			recoilMultiplier: -0.01,
+			accuracy: 0.95,
+			recoilMultiplier: -2,
 			cdTime: 75,
 			cdSpeed: 1,
 			rotationSpeed: 0.02,
@@ -95,4 +95,4 @@ const tankFromType = {
 	}),
 };
 
-export const createTankFromType = (pos: [ number, number ], type: TankType) => tankFromType[type](pos);
+export const createTankFromType = (x: number, y: number, type: TankType) => tankFromType[type](x, y);
