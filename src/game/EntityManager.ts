@@ -2,13 +2,6 @@ import { Entity } from './Entity';
 import { engine } from './PhysicEngine';
 import { Events, World } from 'matter-js';
 
-const entities = new Map<number, Entity>();
-(window as any).entities = entities;
-
-Events.on(engine, 'beforeUpdate', () => {
-	entities.forEach(entity => entity.update());
-});
-
 Events.on(engine, 'collisionStart', ({ pairs }) => {
 	for (let i = 0; i < pairs.length; i++) {
 		const { bodyA, bodyB } = pairs[i];
@@ -19,13 +12,18 @@ Events.on(engine, 'collisionStart', ({ pairs }) => {
 	}
 });
 
+const entities = new Map<number, Entity>();
 const tobeRemoves = new Set<Entity>();
+Events.on(engine, 'beforeUpdate', () => {
+	entities.forEach(entity => entity.update());
+});
+
 Events.on(engine, 'afterUpdate', () => {
 	tobeRemoves.forEach(entity => {
 		EntityManager.remove(entity);
-	})
+	});
 	tobeRemoves.clear();
-})
+});
 
 export const EntityManager = {
 	add(...entity: Entity[]) {

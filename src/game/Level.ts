@@ -61,21 +61,23 @@ export class Level {
 				const y = tileY * tileScale;
 
 				switch (map[i]) {
-					case 'P':
+					case 'P': {
 						// TODO: get the selected type of tank
 						const tank = createTankFromType(x, y, TankType.MOBI);
 						EntityManager.add(tank);
 						attachControl(tank);
 						break;
+					}
 					case 'X':
 						EntityManager.add(new Wall(x, y, tileScale, tileScale));
 						break;
 					case 'M':
 					case 'A':
-					case 'D':
+					case 'D': {
 						EntityManager.add(createTankFromType(x, y, map[i] as TankType));
 						// TODO: Attach AI
 						break;
+					}
 					case 'B':
 						// TODO: Create the mini-boss
 						break;
@@ -85,9 +87,12 @@ export class Level {
 					case '+':
 						// TODO: Spawn the repair pack
 						break;
-					case 'T':
-						EntityManager.add(createTankFromType(x, y, TankType.AVG));
+					case 'T': {
+						const tank = createTankFromType(x, y, TankType.AVG);
+						tank.body.label = 'TARGET_DUMMY';
+						EntityManager.add(tank);
 						break;
+					}
 					case 'K':
 						this.decorations.push(new Marker(x, y));
 						break;
