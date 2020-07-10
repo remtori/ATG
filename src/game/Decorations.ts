@@ -30,15 +30,24 @@ export class Marker extends Decoration {
 }
 
 export class PointingArrow extends Decoration {
-	direction: string;
+	direction: number;
 
 	constructor(x: number, y: number, direction: string) {
 		super(x, y);
-		this.direction = direction;
+		this.direction = [ 'v', '<', '^', '>' ].indexOf(direction);
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
-		ctx.fillStyle = '#0f0';
-		ctx.fillText(this.direction, this.x + 20, this.y + 23);
+		ctx.save();
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = '#0f0';
+		ctx.translate(this.x, this.y);
+		ctx.rotate(Math.PI / 2 * this.direction);
+		ctx.beginPath();
+		ctx.moveTo(-14, -6);
+		ctx.lineTo(0, 3);
+		ctx.lineTo(14, -6);
+		ctx.stroke();
+		ctx.restore();
 	}
 }
