@@ -36,7 +36,7 @@ export function App() {
 
 	return (
 		<Fragment>
-			<canvas class='game-canvas' ref={cvs} width={640} height={480} />
+			<canvas class='game-canvas' ref={cvs} width={960} height={640} />
 			<div class='canvas-overlay' ref={cvsOverlay}>
 				<div class='ui-wrapper'>
 					<GameUI />

@@ -15,8 +15,11 @@ export function runGameClient(canvas: HTMLCanvasElement) {
 	gameClientStarted = true;
 
 	const context = canvas.getContext('2d');
-	const timer = new Timer(1000 / 50);
+	(context as any).mozImageSmoothingEnabled = false;
+	(context as any).webkitImageSmoothingEnabled = false;
+	(context as any).imageSmoothingEnabled = false;
 
+	const timer = new Timer(1000 / 50);
 	const level = loadLevel();
 
 	timer.update = (deltaTime) => {
