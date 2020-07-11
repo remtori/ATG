@@ -2,7 +2,7 @@ import { Entity, BoundingRect } from './Entity';
 import { DamageableEntity } from '../DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
-import { Explosion } from './Decorations';
+import { Explosion } from './Explosion';
 
 export interface TankShellStats {
 	hasImpact: boolean;
