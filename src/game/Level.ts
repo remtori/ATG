@@ -7,6 +7,7 @@ import { Marker, PointingArrow, Decoration } from './entities/Decorations';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
+import { Garage } from './entities/Garage';
 
 export function loadLevel() {
 	// TODO: Implement this properly
@@ -35,6 +36,20 @@ export function loadLevel() {
  *  - 'v' down arrow
  */
 type LevelData = string[];
+
+// TODO: We can do better than this
+function getRenderOrder(label: string): number {
+	switch(label) {
+		case 'TILE':
+			return 1;
+		case 'DECORATION':
+			return 2;
+		case 'TANK':
+			return 3;
+		default:
+			return 5;
+	}
+}
 
 export class Level {
 
@@ -90,6 +105,9 @@ export class Level {
 						// TODO: Attach AI
 						break;
 					}
+					case 'C':
+						EntityManager.add(new Garage(x, y, tileScale));
+						break;
 					case 'B':
 						// TODO: Create the mini-boss
 						break;
@@ -146,10 +164,15 @@ export class Level {
 		});
 
 		// Render entities
-		EntityManager.forEach(entity => {
-			if (entity.shouldRender(camAABB))
-				entity.render(ctx);
-		});
+		// TODO: Fix these
+		const entities = Array.from(EntityManager.list());
+		entities
+		.sort((a, b) => {
+			return getRenderOrder(a.body.label) - getRenderOrder(b.body.label);
+		})
+		.forEach(
+			entity => entity.shouldRender(camAABB) && entity.render(ctx)
+		);
 
 		ctx.restore();
 		ctx.fillStyle = '#fff';

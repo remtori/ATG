@@ -14,6 +14,7 @@ Events.on(engine, 'collisionStart', ({ pairs }) => {
 
 const entities = new Map<number, Entity>();
 const tobeRemoves = new Set<Entity>();
+
 Events.on(engine, 'beforeUpdate', () => {
 	entities.forEach(entity => entity.update());
 });
@@ -45,6 +46,9 @@ export const EntityManager = {
 	},
 	forEach(cb: (entity: Entity) => void) {
 		entities.forEach(cb);
+	},
+	list() {
+		return entities.values();
 	},
 	get(id: number) {
 		return entities.get(id);

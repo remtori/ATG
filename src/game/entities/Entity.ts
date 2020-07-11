@@ -14,6 +14,7 @@ export class Entity implements Renderable {
 		this.body = body || Body.create({
 			isSleeping: true,
 			isSensor: false,
+			label: 'DECORATION',
 		});
 	}
 
