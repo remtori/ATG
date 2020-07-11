@@ -18,20 +18,21 @@ export function loadLevel() {
  *  - JSON file
  * 	- Array of same length string
  *  - ' ' is nothingness
- *  - 'P' is a player
- *  - 'X' is a wall
- *  - 'M' is a Mobi-tank
- *  - 'A' is a AVG-tank
- *  - 'D' is a ADC-tank
- *  - 'B' is a mini-boss
- *  - 'F' is a final boss
- *  - '+' is a repair pack
- *  - 'T' is a dummy target practice
- *  - 'K' is a marker
- *  - '^' is a up arrow
- *  - '<' is a left arrow
- *  - '>' is a right arrow
- *  - 'v' is a down arrow
+ *  - 'P' player
+ *  - 'X' wall
+ *  - 'M' Mobi-tank
+ *  - 'A' AVG-tank
+ *  - 'D' ADC-tank
+ *  - 'B' mini-boss
+ *  - 'F' final boss
+ *  - 'C' tank garage
+ *  - '+' repair pack
+ *  - 'T' dummy target practice
+ *  - 'K' marker
+ *  - '^' up arrow
+ *  - '<' left arrow
+ *  - '>' right arrow
+ *  - 'v' down arrow
  */
 type LevelData = string[];
 
@@ -74,8 +75,7 @@ export class Level {
 
 				switch (map[i]) {
 					case 'P': {
-						// TODO: get the selected type of tank
-						const tank = createTankFromType(x, y, TankType.AVG);
+						const tank = createTankFromType(x, y, TankType.MOBI);
 						EntityManager.add(tank);
 						attachControl(tank);
 						break;

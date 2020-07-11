@@ -1,6 +1,7 @@
 import { Tank } from './entities/Tank';
 import { Events, Engine } from 'matter-js';
 import { engine } from './PhysicEngine';
+import { TankType, createTankFromType } from './TankFactory';
 
 let tank: Tank | undefined;
 
@@ -61,4 +62,13 @@ let initialized = false;
 export function attachControl(tankIn: Tank) {
 	if (!initialized) init();
 	tank = tankIn;
+}
+
+// TODO: Change this hack
+export function changeTankType(tankType: TankType) {
+	if (!tank) return;
+	const newTank = createTankFromType(tank.body.position.x , tank.body.position.y, tankType);
+	newTank.barrelAngle = tank.barrelAngle;
+	newTank.body.angle = tank.body.angle;
+	tank = newTank;
 }

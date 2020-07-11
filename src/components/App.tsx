@@ -1,14 +1,14 @@
 import { h, Fragment } from 'preact';
 import { useRef, useEffect } from 'preact/hooks';
-import { createHashHistory, createMemoryHistory } from 'history';
+import { createHashHistory, createMemoryHistory, History } from 'history';
 import { Router, Route } from 'preact-router';
 
 import { runGameClient } from '../game/GameClient';
 import { Scene } from './routes';
-import { GameUI } from './GameUI';
 import { Tutorial } from './Tutorial';
+import { TankPicker } from './TankPicker';
 
-const history: any = process.env.NODE_ENV === 'production' ? createMemoryHistory() : createHashHistory();
+const history = createMemoryHistory();
 
 export function App() {
 	const cvs = useRef<HTMLCanvasElement>();
@@ -39,9 +39,9 @@ export function App() {
 			<canvas class='game-canvas' ref={cvs} width={960} height={640} />
 			<div class='canvas-overlay' ref={cvsOverlay}>
 				<div class='ui-wrapper'>
-					<GameUI />
-					<Router history={history} url={Scene.Tutorial} >
+					<Router history={history as any} url={Scene.TankPicker} >
 						<Route path={Scene.Tutorial} component={Tutorial} />
+						<Route path={Scene.TankPicker} component={TankPicker} />
 					</Router>
 				</div>
 			</div>

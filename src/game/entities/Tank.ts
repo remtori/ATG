@@ -81,8 +81,8 @@ export class Tank extends DamageableEntity {
 			// Draw tank wheel
 			const wheelThickness = tank.width / 4;
 			ctx.fillStyle = '#111';
-			ctx.fillRect(-tank.length / 2 - 4, -tank.width / 2                 , tank.length + 8, wheelThickness);
-			ctx.fillRect(-tank.length / 2 - 4,  tank.width / 2 - wheelThickness, tank.length + 8, wheelThickness);
+			ctx.fillRect(-tank.length / 2 - 4, -tank.width / 2 - 1             , tank.length + 8, wheelThickness);
+			ctx.fillRect(-tank.length / 2 - 4,  tank.width / 2 - wheelThickness, tank.length + 8, wheelThickness + 1);
 			ctx.restore();
 		}
 
@@ -107,8 +107,8 @@ export class Tank extends DamageableEntity {
 			ctx.restore();
 		}
 
-		ctx.fillStyle = '#fff';
-		ctx.fillText('HP: ' + this.health, 0, 0);
+		// ctx.fillStyle = '#fff';
+		// ctx.fillText('HP: ' + this.health, 0, 0);
 
 		ctx.restore();
 	}
