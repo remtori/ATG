@@ -11,13 +11,13 @@ export class Decoration implements Renderable, Vector {
 	}
 
 	render(ctx: CanvasRenderingContext2D) {}
-	shouldRender(rect: BoundingRect) { return false; }
+
+	shouldRender(rect: BoundingRect) {
+		return rect[0] < this.x && this.x < rect[2] && rect[1] < this.y && this.y < rect[3];
+	}
 }
 
 export class Marker extends Decoration {
-	x: number;
-	y: number;
-
 	render(ctx: CanvasRenderingContext2D) {
 		ctx.save();
 		ctx.fillStyle = '#f00';
@@ -27,10 +27,6 @@ export class Marker extends Decoration {
 		ctx.rotate(Math.PI / 2);
 		ctx.fillRect(-25, -5, 50, 10);
 		ctx.restore();
-	}
-
-	shouldRender(rect: BoundingRect) {
-		return rect[0] < this.x && this.x < rect[2] && rect[1] < this.y && this.y < rect[3];
 	}
 }
 
@@ -54,9 +50,5 @@ export class PointingArrow extends Decoration {
 		ctx.lineTo(14, -6);
 		ctx.stroke();
 		ctx.restore();
-	}
-
-	shouldRender(rect: BoundingRect) {
-		return rect[0] < this.x && this.x < rect[2] && rect[1] < this.y && this.y < rect[3];
 	}
 }
