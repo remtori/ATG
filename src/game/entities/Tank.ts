@@ -17,7 +17,6 @@ export interface TankStats {
 		health: number;
 		rotationSpeed: number;
 		movementSpeed: number;
-		color: string;
 	};
 	barrel: {
 		width: number;
@@ -27,7 +26,6 @@ export interface TankStats {
 		rotationSpeed: number;
 		cdTime: number;
 		cdSpeed: number;
-		color: string;
 	}
 }
 

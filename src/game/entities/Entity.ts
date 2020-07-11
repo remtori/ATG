@@ -7,12 +7,14 @@ export interface Renderable {
 	shouldRender(rect: BoundingRect): boolean;
 }
 
-const EMPTY_BODY = Body.create({});
 export class Entity implements Renderable {
 	body: Body;
 
-	constructor(body: Body = EMPTY_BODY) {
-		this.body = body;
+	constructor(body?: Body) {
+		this.body = body || Body.create({
+			isSleeping: true,
+			isSensor: false,
+		});
 	}
 
 	render(ctx: CanvasRenderingContext2D) {}

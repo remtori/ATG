@@ -75,7 +75,7 @@ export class Level {
 				switch (map[i]) {
 					case 'P': {
 						// TODO: get the selected type of tank
-						const tank = createTankFromType(x, y, TankType.MOBI);
+						const tank = createTankFromType(x, y, TankType.AVG);
 						EntityManager.add(tank);
 						attachControl(tank);
 						break;

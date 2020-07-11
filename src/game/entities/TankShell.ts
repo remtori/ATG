@@ -2,11 +2,12 @@ import { Entity, BoundingRect } from './Entity';
 import { DamageableEntity } from '../DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
+import { Explosion } from './Decorations';
 
 export interface TankShellStats {
+	hasImpact: boolean;
 	speed: number;
 	radius: number;
-	color: string;
 	health: number;
 	damage: number;
 	age: number;
@@ -23,7 +24,8 @@ export class TankShell extends DamageableEntity {
 			stats.health,
 			Bodies.circle(position.x, position.y, stats.radius, {
 				label: 'BULLET',
-				isSensor: true,
+				isSensor: !stats.hasImpact,
+				density: 1e-6,
 			})
 		);
 
@@ -58,6 +60,9 @@ export class TankShell extends DamageableEntity {
 	collideWith(other: Entity) {
 		super.collideWith(other);
 		if (other.body.label !== 'BULLET') {
+			EntityManager.add(
+				new Explosion(this.body.position.x, this.body.position.y, this.stats.radius)
+			);
 			EntityManager.scheduleRemove(this);
 		}
 	}
