@@ -92,15 +92,27 @@ export class Tank extends DamageableEntity {
 		{
 			ctx.save();
 			ctx.rotate(this.barrelAngle);
-			ctx.fillStyle = '#900';
-			ctx.fillRect(0, -barrel.width / 2, barrel.length, barrel.width);
-			ctx.restore();
 
-			ctx.fillStyle = '#fff';
-			ctx.fillText('HP: ' + this.health, 0, 0);
+			ctx.strokeStyle = '#000';
+			ctx.fillStyle = '#3b7a04';
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.rect(0, -barrel.width / 2, barrel.length, barrel.width);
+			ctx.stroke();
+			ctx.fill();
+
+			ctx.fillStyle = '#090';
+			ctx.fillRect(0, -barrel.width / 3, barrel.length, barrel.width / 1.5);
+			ctx.fillStyle = '#0a0';
+			ctx.fillRect(0, -barrel.width / 6, barrel.length, barrel.width / 3);
 
 			ctx.restore();
 		}
+
+		ctx.fillStyle = '#fff';
+		ctx.fillText('HP: ' + this.health, 0, 0);
+
+		ctx.restore();
 	}
 
 	shouldRender(rect: BoundingRect) {
