@@ -1,4 +1,4 @@
-import { Tank } from './Tank';
+import { Tank } from './entities/Tank';
 import { Events, Engine } from 'matter-js';
 import { engine } from './PhysicEngine';
 

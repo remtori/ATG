@@ -1,5 +1,5 @@
 import { Entity } from './Entity';
-import { engine } from './PhysicEngine';
+import { engine } from '../PhysicEngine';
 import { Events, World } from 'matter-js';
 
 Events.on(engine, 'collisionStart', ({ pairs }) => {

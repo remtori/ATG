@@ -1,6 +1,6 @@
-import { Entity } from './Entity';
+import { Entity } from './entities/Entity';
 import { Body } from 'matter-js';
-import { EntityManager } from './EntityManager';
+import { EntityManager } from './entities/EntityManager';
 
 export class DamageableEntity extends Entity {
 	health: number;

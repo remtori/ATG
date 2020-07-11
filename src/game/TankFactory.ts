@@ -1,4 +1,4 @@
-import { Tank, TankStats } from './Tank';
+import { Tank, TankStats } from './entities/Tank';
 
 const tankCreator = (stats: TankStats) => (x: number, y: number) => new Tank(x, y, stats);
 

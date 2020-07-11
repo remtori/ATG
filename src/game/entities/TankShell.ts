@@ -1,5 +1,5 @@
 import { Entity, BoundingRect } from './Entity';
-import { DamageableEntity } from './DamageableEntity';
+import { DamageableEntity } from '../DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
 
@@ -22,8 +22,8 @@ export class TankShell extends DamageableEntity {
 		super(
 			stats.health,
 			Bodies.circle(position.x, position.y, stats.radius, {
-				isSensor: true,
 				label: 'BULLET',
+				isSensor: true,
 			})
 		);
 

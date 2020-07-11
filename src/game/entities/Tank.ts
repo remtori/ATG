@@ -1,8 +1,8 @@
-import { DamageableEntity } from './DamageableEntity';
+import { DamageableEntity } from '../DamageableEntity';
 import { Body, Bodies, Vector } from 'matter-js';
 import { TankShell, TankShellStats } from './TankShell';
 import { EntityManager } from './EntityManager';
-import { BoundingRect } from './Entity';
+import { BoundingRect, Entity } from './Entity';
 
 const twoPI = Math.PI * 2;
 function clampAngle(angle: number): number {

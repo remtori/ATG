@@ -1,5 +1,5 @@
-import { Tank } from './game/Tank';
-import { EntityManager } from './game/EntityManager';
+import { Tank } from './game/entities/Tank';
+import { EntityManager } from './game/entities/EntityManager';
 
 const epsilon = 25;
 const isAround = (a: number, b: number) => Math.abs(a - b) < epsilon;

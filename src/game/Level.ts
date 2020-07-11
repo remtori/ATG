@@ -1,9 +1,9 @@
-import { EntityManager } from './EntityManager';
+import { EntityManager } from './entities/EntityManager';
 import { attachControl, getControlledTank } from './TankController';
 import { TankType, createTankFromType } from './TankFactory';
-import { BoundingRect } from './Entity';
-import { Wall } from './Wall';
-import { Marker, PointingArrow, Decoration } from './Decorations';
+import { BoundingRect } from './entities/Entity';
+import { Wall } from './entities/Wall';
+import { Marker, PointingArrow, Decoration } from './entities/Decorations';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
