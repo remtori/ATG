@@ -7,10 +7,11 @@ export interface Renderable {
 	shouldRender(rect: BoundingRect): boolean;
 }
 
+const EMPTY_BODY = Body.create({});
 export class Entity implements Renderable {
 	body: Body;
 
-	constructor(body: Body) {
+	constructor(body: Body = EMPTY_BODY) {
 		this.body = body;
 	}
 
