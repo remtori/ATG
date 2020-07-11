@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity, BoundingRect } from './Entity';
 import { DamageableEntity } from './DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
@@ -38,6 +38,11 @@ export class TankShell extends DamageableEntity {
 		ctx.arc(this.body.position.x, this.body.position.y, this.stats.radius, 0, 2 * Math.PI);
 		ctx.fillStyle = '#00f';
 		ctx.fill();
+	}
+
+	shouldRender(rect: BoundingRect) {
+		const { x, y } = this.body.position;
+		return rect[0] < x && x < rect[2] && rect[1] < y && y < rect[3];
 	}
 
 	update() {

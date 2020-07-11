@@ -1,12 +1,12 @@
 import { EntityManager } from './EntityManager';
 import { attachControl, getControlledTank } from './TankController';
 import { TankType, createTankFromType } from './TankFactory';
-import { Vector } from 'matter-js';
+import { BoundingRect } from './Entity';
+import { Wall } from './Wall';
+import { Marker, PointingArrow, Decoration } from './Decorations';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
-import { Wall } from './Wall';
-import { Marker, PointingArrow, Decoration } from './Decorations';
 
 export function loadLevel() {
 	// TODO: Implement this properly
@@ -53,6 +53,18 @@ export class Level {
 		const mapHeight = this.levelData.length;
 		const map = this.levelData.join('');
 		const tileScale = 50;
+
+		{
+			const width = mapWidth * tileScale;
+			const height = mapHeight * tileScale;
+			// Build a border wall
+			EntityManager.add(
+				new Wall(width / 2 - tileScale / 2,                          0,     width,          tileScale),
+				new Wall(                        0, height / 2 - tileScale / 2, tileScale,             height),
+				new Wall(                    width,                 height / 2, tileScale, height + tileScale),
+				new Wall(width / 2 - tileScale / 2,                     height,     width,          tileScale),
+			);
+		}
 
 		for (let tileX = 0; tileX < mapWidth; tileX++) {
 			for (let tileY = 0; tileY < mapHeight; tileY++) {
@@ -129,13 +141,13 @@ export class Level {
 		ctx.translate(-camX + camWidth / 2, -camY + camHeight / 2);
 
 		this.decorations.forEach(deco => {
-			if (inRect(deco, camAABB))
+			if (deco.shouldRender(camAABB))
 				deco.render(ctx)
 		});
 
 		// Render entities
 		EntityManager.forEach(entity => {
-			if (inRect(entity.body.position, camAABB))
+			if (entity.shouldRender(camAABB))
 				entity.render(ctx);
 		});
 
@@ -143,10 +155,4 @@ export class Level {
 		ctx.fillStyle = '#fff';
 		ctx.fillText(tank.body.position.x.toFixed(2) + " " + tank.body.position.y.toFixed(2), 50, 50);
 	}
-}
-
-type BoundingRect = [ number, number, number, number ];
-
-function inRect(pos: Vector, rect: BoundingRect) {
-	return rect[0] < pos.x && pos.x < rect[2] && rect[1] < pos.y && pos.y < rect[3];
 }

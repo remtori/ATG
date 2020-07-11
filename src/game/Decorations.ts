@@ -1,4 +1,4 @@
-import { Renderable } from './Entity';
+import { Renderable, BoundingRect } from './Entity';
 import { Vector } from 'matter-js';
 
 export class Decoration implements Renderable, Vector {
@@ -11,6 +11,7 @@ export class Decoration implements Renderable, Vector {
 	}
 
 	render(ctx: CanvasRenderingContext2D) {}
+	shouldRender(rect: BoundingRect) { return false; }
 }
 
 export class Marker extends Decoration {
@@ -26,6 +27,10 @@ export class Marker extends Decoration {
 		ctx.rotate(Math.PI / 2);
 		ctx.fillRect(-25, -5, 50, 10);
 		ctx.restore();
+	}
+
+	shouldRender(rect: BoundingRect) {
+		return rect[0] < this.x && this.x < rect[2] && rect[1] < this.y && this.y < rect[3];
 	}
 }
 
@@ -49,5 +54,9 @@ export class PointingArrow extends Decoration {
 		ctx.lineTo(14, -6);
 		ctx.stroke();
 		ctx.restore();
+	}
+
+	shouldRender(rect: BoundingRect) {
+		return rect[0] < this.x && this.x < rect[2] && rect[1] < this.y && this.y < rect[3];
 	}
 }
