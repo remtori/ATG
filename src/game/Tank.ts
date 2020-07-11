@@ -53,26 +53,53 @@ export class Tank extends DamageableEntity {
 
 	render(ctx: CanvasRenderingContext2D) {
 		const pos = this.body.position;
+		const { tank, barrel } = this.stats;
 
 		ctx.save();
 		ctx.translate(pos.x, pos.y);
 
-		ctx.save();
-		ctx.rotate(this.body.angle);
-		ctx.fillStyle = '#090';
-		ctx.fillRect(-this.stats.tank.length / 2, -this.stats.tank.width / 2, this.stats.tank.length, this.stats.tank.width);
-		ctx.restore();
+		// Draw tank body
+		{
+			ctx.save();
+			ctx.rotate(this.body.angle);
+			// Draw main body
+			ctx.fillStyle = '#090';
+			ctx.fillRect(-tank.length / 2, -tank.width / 2, tank.length, tank.width);
+			// Draw back decoration
+			ctx.lineWidth = 8;
+			ctx.strokeStyle = '#150';
+			ctx.beginPath();
+			ctx.moveTo(-14, -tank.width / 2 + 4);
+			ctx.lineTo(-2, 0);
+			ctx.lineTo(-14, tank.width / 2 - 4);
+			ctx.stroke();
+			// Draw front decoration
+			ctx.beginPath();
+			ctx.moveTo(2, -tank.width / 2 + 4);
+			ctx.lineTo(14, 0);
+			ctx.lineTo(2, tank.width / 2 - 4);
+			ctx.stroke();
+			// Draw tank wheel
+			const wheelThickness = tank.width / 4;
+			ctx.fillStyle = '#111';
+			ctx.fillRect(-tank.length / 2 - 4, -tank.width / 2                 , tank.length + 8, wheelThickness);
+			ctx.fillRect(-tank.length / 2 - 4,  tank.width / 2 - wheelThickness, tank.length + 8, wheelThickness);
+			ctx.restore();
+		}
 
-		ctx.save();
-		ctx.rotate(this.barrelAngle);
-		ctx.fillStyle = '#900';
-		ctx.fillRect(0, -this.stats.barrel.width / 2, this.stats.barrel.length, this.stats.barrel.width);
-		ctx.restore();
+		// Draw tank barrel
+		{
+			ctx.save();
+			ctx.rotate(this.barrelAngle);
+			ctx.fillStyle = '#900';
+			ctx.fillRect(0, -barrel.width / 2, barrel.length, barrel.width);
+			ctx.restore();
 
-		ctx.fillStyle = '#fff';
-		ctx.fillText('HP: ' + this.health, 0, 0);
+			ctx.fillStyle = '#fff';
+			ctx.fillText('HP: ' + this.health, 0, 0);
 
-		ctx.restore();
+			ctx.restore();
+		}
 	}
 
 	update() {
@@ -122,7 +149,7 @@ export class Tank extends DamageableEntity {
 		const angle = this.barrelAngle + ((1 - Math.random() * 2) * (1 - this.stats.barrel.accuracy));
 		const dir = { x: Math.cos(angle), y: Math.sin(angle) };
 
-		const posOffset = Vector.mult(dir, this.stats.barrel.length);
+		const posOffset = Vector.mult(dir, this.stats.barrel.length + 10);
 		const position = Vector.add(this.body.position, posOffset);
 		const velocity = Vector.mult(dir, this.stats.shell.speed);
 
