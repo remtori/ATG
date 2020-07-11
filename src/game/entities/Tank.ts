@@ -2,7 +2,7 @@ import { DamageableEntity } from '../DamageableEntity';
 import { Body, Bodies, Vector } from 'matter-js';
 import { TankShell, TankShellStats } from './TankShell';
 import { EntityManager } from './EntityManager';
-import { BoundingRect, Entity } from './Entity';
+import { BoundingRect } from './Entity';
 
 const twoPI = Math.PI * 2;
 function clampAngle(angle: number): number {
@@ -111,11 +111,6 @@ export class Tank extends DamageableEntity {
 		// ctx.fillText('HP: ' + this.health, 0, 0);
 
 		ctx.restore();
-	}
-
-	shouldRender(rect: BoundingRect) {
-		const { x, y } = this.body.position;
-		return rect[0] < x && x < rect[2] && rect[1] < y && y < rect[3];
 	}
 
 	update() {

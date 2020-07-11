@@ -42,11 +42,6 @@ export class TankShell extends DamageableEntity {
 		ctx.fill();
 	}
 
-	shouldRender(rect: BoundingRect) {
-		const { x, y } = this.body.position;
-		return rect[0] < x && x < rect[2] && rect[1] < y && y < rect[3];
-	}
-
 	update() {
 		super.update();
 		this.age -= 1;
