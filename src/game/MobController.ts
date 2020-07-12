@@ -17,7 +17,11 @@ Events.on(engine, 'beforeUpdate', function() {
 		tank.bodyTargetAngle(angle);
 		tank.barrelTargetAngle(angle);
 
-		const sqrDist = dir.x * dir.x + dir.y * dir.y ;
+		const sqrDist = dir.x * dir.x + dir.y * dir.y;
+
+		if (sqrDist > 1000 * 1000)
+			continue;
+
 		if (sqrDist > 200 * 200)
 			tank.move();
 
