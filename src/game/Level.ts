@@ -43,6 +43,7 @@ type LevelData = string[];
 function getRenderOrder(label: string): number {
 	switch(label) {
 		case 'TILE':
+		case 'WALL':
 			return 1;
 		case 'DECORATION':
 			return 2;
