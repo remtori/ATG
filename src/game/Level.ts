@@ -77,10 +77,10 @@ export class Level {
 			const height = mapHeight * tileScale;
 			// Build a border wall
 			EntityManager.add(
-				new Wall(        width / 2,         -tileScale, width + tileScale * 3,          tileScale),
-				new Wall(       -tileScale, height / 2        ,             tileScale, height + tileScale * 3),
-				new Wall(width + tileScale, height / 2        ,             tileScale, height + tileScale * 3),
-				new Wall(        width / 2, height + tileScale, width + tileScale * 3,          tileScale),
+				new Wall(        width / 2, -tileScale, width + tileScale * 3,          tileScale),
+				new Wall(       -tileScale, height / 2,             tileScale, height + tileScale),
+				new Wall(width + tileScale, height / 2,             tileScale, height + tileScale),
+				new Wall(        width / 2, height    , width + tileScale * 3,          tileScale),
 			);
 		}
 
