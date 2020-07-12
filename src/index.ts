@@ -3,5 +3,5 @@ import { App } from './components/App';
 import { TankType } from './game/TankFactory';
 import './styles.scss';
 
-window.selectedTankType = TankType.MOBI;
+window.selectedTankType = TankType.AVG;
 render(h(App, null), document.body);
