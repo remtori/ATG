@@ -18,8 +18,8 @@ export function getControlledTank() {
 const keys: { [key: string]: boolean } = {};
 let mX = 0;
 let mY = 0;
-let reSpawnPointX = 0;
-let reSpawnPointY = 0;
+let reSpawnPointX = 50;
+let reSpawnPointY = 50;
 
 let initialized = false;
 function init() {

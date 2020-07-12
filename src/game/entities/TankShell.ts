@@ -38,7 +38,7 @@ export class TankShell extends DamageableEntity {
 	render(ctx: CanvasRenderingContext2D) {
 		ctx.beginPath();
 		ctx.arc(this.body.position.x, this.body.position.y, this.stats.radius, 0, 2 * Math.PI);
-		ctx.fillStyle = '#00f';
+		ctx.fillStyle = '#f00';
 		ctx.fill();
 	}
 

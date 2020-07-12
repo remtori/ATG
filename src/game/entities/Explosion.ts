@@ -23,7 +23,7 @@ export class Explosion extends Entity {
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
-		ctx.strokeStyle = '#00d';
+		ctx.strokeStyle = '#d00';
 		ctx.lineWidth = 4;
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
