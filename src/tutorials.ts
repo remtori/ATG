@@ -25,7 +25,7 @@ export const tutorials = [
 	{
 		text: `You can switch tank by standing on the S symbol and press SPACE`,
 		isComplete: (tank: Tank) => {
-			return isAround(tank.body.position.x, 150) && isAround(tank.body.position.y, 500);
+			return false;
 		}
 	}
 ];

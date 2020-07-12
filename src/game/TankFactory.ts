@@ -41,7 +41,7 @@ const tankFromType = {
 			age: 100,
 			speed: 7,
 			radius: 5,
-			health: 10,
+			health: 30,
 			damage: 60,
 		},
 		tank: {
@@ -67,7 +67,7 @@ const tankFromType = {
 			age: 300,
 			speed: 15,
 			radius: 9,
-			health: 15,
+			health: 50,
 			damage: 175,
 		},
 		tank: {

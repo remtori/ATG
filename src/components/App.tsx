@@ -55,7 +55,7 @@ export function App() {
 function InGame(): h.JSX.Element {
 
 	useEffect(() => {
-		changeTankType(window.selectedTankType as TankType || TankType.MOBI);
+		changeTankType(window.selectedTankType as TankType);
 	})
 
 	return null;

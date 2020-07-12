@@ -1,4 +1,4 @@
-import { DamageableEntity } from '../DamageableEntity';
+import { DamageableEntity } from './DamageableEntity';
 import { Body, Bodies, Vector } from 'matter-js';
 import { TankShell, TankShellStats } from './TankShell';
 import { EntityManager } from './EntityManager';
@@ -107,8 +107,9 @@ export class Tank extends DamageableEntity {
 			ctx.restore();
 		}
 
-		// ctx.fillStyle = '#fff';
-		// ctx.fillText('HP: ' + this.health, 0, 0);
+		ctx.fillStyle = '#fff';
+		ctx.font = '12px Arial';
+		ctx.fillText('HP: ' + this.health, 0, 0);
 
 		ctx.restore();
 	}
@@ -132,13 +133,27 @@ export class Tank extends DamageableEntity {
 		Body.setAngularVelocity(this.body, direction * this.stats.tank.rotationSpeed);
 	}
 
+	bodyTargetAngle(angle: number) {
+		angle = clampAngle(angle);
+		const delta = angle - clampAngle(this.body.angle);
+
+		if (Math.abs(delta) <= this.stats.tank.rotationSpeed) {
+			Body.setAngle(this.body, angle);
+			return;
+		}
+
+		if (delta > Math.PI ||  (- Math.PI < delta && delta < 0))
+			this.rotate(-1);
+		else
+			this.rotate(1);
+	}
+
 	barrelTargetAngle(angle: number) {
 
 		angle = clampAngle(angle);
 		const delta = angle - this.barrelAngle;
 
-		if (Math.abs(delta) <= this.stats.barrel.rotationSpeed)
-		{
+		if (Math.abs(delta) <= this.stats.barrel.rotationSpeed) {
 			this.barrelAngle = angle;
 			return;
 		}

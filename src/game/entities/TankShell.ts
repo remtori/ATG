@@ -1,5 +1,5 @@
 import { Entity, BoundingRect } from './Entity';
-import { DamageableEntity } from '../DamageableEntity';
+import { DamageableEntity } from './DamageableEntity';
 import { Vector, Bodies, Body } from 'matter-js';
 import { EntityManager } from './EntityManager';
 import { Explosion } from './Explosion';
@@ -54,7 +54,7 @@ export class TankShell extends DamageableEntity {
 
 	collideWith(other: Entity) {
 		super.collideWith(other);
-		if (other.body.label !== 'TILE') {
+		if (other.body.label !== 'TILE' && other.body.label !== 'BULLET') {
 			EntityManager.add(
 				new Explosion(this.body.position.x, this.body.position.y, this.stats.radius)
 			);

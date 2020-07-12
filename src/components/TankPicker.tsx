@@ -30,7 +30,7 @@ const StatTab = ({ mobi, dmg, health }: { mobi: number, dmg: number, health: num
 export function TankPicker() {
 
 	const onClick = useCallback((e: Event) => {
-		(window as any).selectedTankType = (e.srcElement as any).dataset.tankType;
+		window.selectedTankType = (e.srcElement as any).dataset.tankType;
 		route(Scene.InGame);
 	}, []);
 

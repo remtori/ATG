@@ -7,13 +7,16 @@ Events.on(engine, 'collisionStart', ({ pairs }) => {
 		const { bodyA, bodyB } = pairs[i];
 		const entityA = entities.get(bodyA.id);
 		const entityB = entities.get(bodyB.id);
-		entityA.collideWith(entityB);
-		entityB.collideWith(entityA);
+		if (entityA && entityB) {
+			entityA.collideWith(entityB);
+			entityB.collideWith(entityA);
+		}
 	}
 });
 
 const entities = new Map<number, Entity>();
 const tobeRemoves = new Set<Entity>();
+(window as any).entities = entities;
 
 Events.on(engine, 'beforeUpdate', () => {
 	entities.forEach(entity => entity.update());
@@ -40,6 +43,7 @@ export const EntityManager = {
 	removeAll() {
 		entities.forEach(entity => World.remove(engine.world, entity.body));
 		entities.clear();
+		tobeRemoves.clear();
 	},
 	scheduleRemove(entity: Entity) {
 		tobeRemoves.add(entity);

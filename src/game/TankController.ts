@@ -3,7 +3,7 @@ import { Events, Engine } from 'matter-js';
 import { engine } from './PhysicEngine';
 import { TankType, createTankFromType } from './TankFactory';
 import { Level } from './Level';
-import { route } from 'preact-router';
+import { route, getCurrentUrl } from 'preact-router';
 import { Scene } from '../components/routes';
 import { EntityManager } from './entities/EntityManager';
 
@@ -13,11 +13,16 @@ export function getControlledTank() {
 	return tank;
 }
 
+(window as any).getControlledTank = getControlledTank;
+
 const keys: { [key: string]: boolean } = {};
 let mX = 0;
 let mY = 0;
 
+let initialized = false;
 function init() {
+	initialized = true;
+
 	window.addEventListener('keydown', e => {
 		keys[e.key] = true;
 	});
@@ -42,7 +47,7 @@ function init() {
 
 	const pos = { x: globalCanvasWidth / 2, y: globalCanvasHeight / 2 };
 	Events.on(engine, "beforeUpdate", e => {
-		if (!tank) return;
+		if (!tank || getCurrentUrl() === Scene.TankPicker) return;
 
 		if (keys[' '] && Level.current.getTileAt(tank.body.position.x, tank.body.position.y) === 'C') {
 			route(Scene.TankPicker);
@@ -67,10 +72,14 @@ function init() {
 	});
 }
 
-let initialized = false;
+function onDeath() {
+	Level.current.start();
+}
+
 export function attachControl(tankIn: Tank) {
 	if (!initialized) init();
 	tank = tankIn;
+	tank.beforeDeath = onDeath;
 }
 
 // TODO: Change this hack
@@ -80,7 +89,7 @@ export function changeTankType(tankType: TankType) {
 	newTank.barrelAngle = tank.barrelAngle;
 	newTank.body.angle = tank.body.angle;
 
-	EntityManager.add(newTank);
 	EntityManager.remove(tank);
-	tank = newTank;
+	EntityManager.add(newTank);
+	attachControl(newTank);
 }

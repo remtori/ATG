@@ -1,6 +1,6 @@
-import { Entity } from './entities/Entity';
+import { Entity } from './Entity';
 import { Body } from 'matter-js';
-import { EntityManager } from './entities/EntityManager';
+import { EntityManager } from './EntityManager';
 
 export class DamageableEntity extends Entity {
 	health: number;
@@ -12,8 +12,12 @@ export class DamageableEntity extends Entity {
 	collideWith(other: Entity) {
 		if (other.body.label === 'BULLET') {
 			this.health -= (other as any).damage;
-			if (this.health <= 0)
+			if (this.health <= 0) {
+				this.beforeDeath();
 				EntityManager.scheduleRemove(this);
+			}
 		}
 	}
-};
+
+	beforeDeath() { /* Pray */ }
+}

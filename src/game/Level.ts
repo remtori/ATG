@@ -4,6 +4,7 @@ import { TankType, createTankFromType } from './TankFactory';
 import { BoundingRect } from './entities/Entity';
 import { Wall } from './entities/Wall';
 import { Marker, PointingArrow, Decoration, Garage } from './entities/Decorations';
+import { attachMobControl } from './MobController';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
@@ -64,7 +65,7 @@ export class Level {
 	start() {
 		Level.current = this;
 		EntityManager.removeAll();
-		this.decorations.length = 0;
+		this.decorations = [];
 
 		const mapWidth = this.levelData[0].length;
 		const mapHeight = this.levelData.length;
@@ -91,7 +92,7 @@ export class Level {
 
 				switch (map[i]) {
 					case 'P': {
-						const tank = createTankFromType(x, y, TankType.MOBI);
+						const tank = createTankFromType(x, y, window.selectedTankType as TankType);
 						EntityManager.add(tank);
 						attachControl(tank);
 						break;
@@ -104,7 +105,7 @@ export class Level {
 					case 'D': {
 						const tank = createTankFromType(x, y, map[i] as TankType);
 						EntityManager.add(tank);
-						// TODO: Attach AI
+						attachMobControl(tank);
 						break;
 					}
 					case 'C':
