@@ -35,17 +35,21 @@ export class Tank extends DamageableEntity {
 	barrelAngle: number = 0;
 	isInGarage = false;
 
-	constructor(x: number, y: number, stats: TankStats) {
+	constructor(x: number, y: number, stats: TankStats, bodyOptions: Matter.IChamferableBodyDefinition = {}) {
 		super(
 			stats.tank.health,
-			Bodies.rectangle(x, y, stats.tank.length, stats.tank.width, {
-				density: 1,
-				friction: 0,
-				frictionStatic: 0,
-				frictionAir: 0.2,
-				restitution: 0,
-				label: 'TANK',
-			})
+			Bodies.rectangle(
+				x, y,
+				stats.tank.length, stats.tank.width,
+				Object.assign({}, bodyOptions, {
+					density: 1,
+					friction: 0,
+					frictionStatic: 0,
+					frictionAir: 0.2,
+					restitution: 0,
+					label: 'TANK',
+				})
+			)
 		);
 
 		this.stats = stats;
@@ -108,9 +112,11 @@ export class Tank extends DamageableEntity {
 			ctx.restore();
 		}
 
-		ctx.fillStyle = '#fff';
-		ctx.font = '12px Arial';
-		ctx.fillText('HP: ' + this.health, 0, 0);
+		const maxHealth = this.stats.tank.health / 3;
+		ctx.fillStyle = '#ccc';
+		ctx.fillRect(-maxHealth / 2, -20, maxHealth, 5);
+		ctx.fillStyle = '#f00';
+		ctx.fillRect(-maxHealth / 2, -20, this.health / 3, 5);
 
 		ctx.restore();
 	}

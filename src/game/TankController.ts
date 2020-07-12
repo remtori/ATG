@@ -18,6 +18,8 @@ export function getControlledTank() {
 const keys: { [key: string]: boolean } = {};
 let mX = 0;
 let mY = 0;
+let reSpawnPointX = 0;
+let reSpawnPointY = 0;
 
 let initialized = false;
 function init() {
@@ -49,9 +51,15 @@ function init() {
 	Events.on(engine, "beforeUpdate", e => {
 		if (!tank || getCurrentUrl() === Scene.TankPicker) return;
 
-		if (keys[' '] && tank.isInGarage) {
-			route(Scene.TankPicker);
-			return;
+		if (tank.isInGarage) {
+
+			reSpawnPointX = tank.body.position.x;
+			reSpawnPointY = tank.body.position.y;
+
+			if (keys[' ']) {
+				route(Scene.TankPicker);
+				return;
+			}
 		}
 
 		if (keys['w'])
@@ -73,7 +81,9 @@ function init() {
 }
 
 function onDeath() {
-	Level.current.start();
+	const tank = createTankFromType(reSpawnPointX, reSpawnPointY, selectedTankType as TankType);
+	EntityManager.add(tank);
+	attachControl(tank);
 }
 
 export function attachControl(tankIn: Tank) {
@@ -85,9 +95,10 @@ export function attachControl(tankIn: Tank) {
 // TODO: Change this hack
 export function changeTankType(tankType: TankType) {
 	if (!tank) return;
-	const newTank = createTankFromType(tank.body.position.x , tank.body.position.y, tankType);
+	const newTank = createTankFromType(tank.body.position.x , tank.body.position.y, tankType, {
+		angle: tank.body.angle
+	});
 	newTank.barrelAngle = tank.barrelAngle;
-	newTank.body.angle = tank.body.angle;
 
 	EntityManager.remove(tank);
 	EntityManager.add(newTank);

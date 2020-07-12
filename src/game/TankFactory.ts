@@ -1,6 +1,7 @@
 import { Tank, TankStats } from './entities/Tank';
 
-const tankCreator = (stats: TankStats) => (x: number, y: number) => new Tank(x, y, stats);
+const tankCreator = (stats: TankStats) => (x: number, y: number, bodyOptions?: Matter.IChamferableBodyDefinition) => new Tank(x, y, stats, bodyOptions);
+export const createTankFromType = (x: number, y: number, type: TankType, bodyOptions?: Matter.IChamferableBodyDefinition) => tankFromType[type](x, y, bodyOptions);
 
 export enum TankType {
 	MOBI = 'M',
@@ -88,5 +89,3 @@ const tankFromType = {
 		},
 	}),
 };
-
-export const createTankFromType = (x: number, y: number, type: TankType) => tankFromType[type](x, y);
