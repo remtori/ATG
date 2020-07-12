@@ -34,6 +34,8 @@ export class Tank extends DamageableEntity {
 	cooldown: number = 0;
 	barrelAngle: number = 0;
 	isInGarage = false;
+	accuracy: number;
+	speed: number;
 
 	constructor(x: number, y: number, stats: TankStats, bodyOptions: Matter.IChamferableBodyDefinition = {}) {
 		super(
@@ -41,18 +43,20 @@ export class Tank extends DamageableEntity {
 			Bodies.rectangle(
 				x, y,
 				stats.tank.length, stats.tank.width,
-				Object.assign({}, bodyOptions, {
+				Object.assign({
 					density: 1,
 					friction: 0,
 					frictionStatic: 0,
 					frictionAir: 0.2,
 					restitution: 0,
 					label: 'TANK',
-				})
+				}, bodyOptions)
 			)
 		);
 
 		this.stats = stats;
+		this.accuracy = stats.barrel.accuracy;
+		this.speed = stats.tank.movementSpeed;
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
@@ -136,8 +140,8 @@ export class Tank extends DamageableEntity {
 
 	move(direction = 1) {
 		Body.applyForce(this.body, this.body.position, {
-			x: Math.cos(this.body.angle) * this.stats.tank.movementSpeed * direction,
-			y: Math.sin(this.body.angle) * this.stats.tank.movementSpeed * direction,
+			x: Math.cos(this.body.angle) * this.speed * direction,
+			y: Math.sin(this.body.angle) * this.speed * direction,
 		});
 	}
 
@@ -184,7 +188,7 @@ export class Tank extends DamageableEntity {
 
 		this.cooldown = this.stats.barrel.cdTime;
 
-		const angle = this.barrelAngle + ((1 - Math.random() * 2) * (1 - this.stats.barrel.accuracy));
+		const angle = this.barrelAngle + ((1 - Math.random() * 2) * (1 - this.accuracy));
 		const dir = { x: Math.cos(angle), y: Math.sin(angle) };
 
 		const posOffset = Vector.mult(dir, this.stats.barrel.length + 10);

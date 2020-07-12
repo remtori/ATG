@@ -41,8 +41,9 @@ export function App() {
 			<canvas class='game-canvas' ref={cvs} width={960} height={640} />
 			<div class='canvas-overlay' ref={cvsOverlay}>
 				<div class='ui-wrapper'>
-					<Router history={history as any} url={Scene.Tutorial} >
+					<Router history={history as any}>
 						<Route path={Scene.InGame} component={InGame} />
+						<Route path={Scene.Victory} component={InGame} />
 						<Route path={Scene.Tutorial} component={Tutorial} />
 						<Route path={Scene.TankPicker} component={TankPicker} />
 					</Router>

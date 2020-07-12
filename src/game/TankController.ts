@@ -26,10 +26,10 @@ function init() {
 	initialized = true;
 
 	window.addEventListener('keydown', e => {
-		keys[e.key] = true;
+		keys[e.code] = true;
 	});
 	window.addEventListener('keyup', e => {
-		keys[e.key] = false;
+		keys[e.code] = false;
 	});
 
 	window.addEventListener('mousemove', e => {
@@ -56,20 +56,28 @@ function init() {
 			reSpawnPointX = tank.body.position.x;
 			reSpawnPointY = tank.body.position.y;
 
-			if (keys[' ']) {
+			if (keys['Space']) {
 				route(Scene.TankPicker);
 				return;
 			}
 		}
 
-		if (keys['w'])
+		if (keys['ShiftLeft']) {
+			tank.speed = tank.stats.tank.movementSpeed * 1.75;
+			tank.accuracy = tank.stats.barrel.accuracy * 0.5;
+		} else {
+			tank.speed = tank.stats.tank.movementSpeed;
+			tank.accuracy = tank.stats.barrel.accuracy;
+		}
+
+		if (keys['KeyW'])
 			tank.move(1);
-		else if (keys['s'])
+		else if (keys['KeyS'])
 			tank.move(-1);
 
-		if (keys['a'])
+		if (keys['KeyA'])
 			tank.rotate(-1);
-		else if (keys['d'])
+		else if (keys['KeyD'])
 			tank.rotate(1);
 
 		// const pos = tank.body.position;
@@ -81,9 +89,11 @@ function init() {
 }
 
 function onDeath() {
-	const tank = createTankFromType(reSpawnPointX, reSpawnPointY, selectedTankType as TankType);
-	EntityManager.add(tank);
-	attachControl(tank);
+	const newTank = createTankFromType(reSpawnPointX, reSpawnPointY, selectedTankType as TankType);
+	EntityManager.remove(tank);
+	EntityManager.add(newTank);
+	attachControl(newTank);
+	Level.current.deathCount++;
 }
 
 export function attachControl(tankIn: Tank) {

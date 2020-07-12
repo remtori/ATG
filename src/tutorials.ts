@@ -6,7 +6,7 @@ const isAround = (a: number, b: number) => Math.abs(a - b) < epsilon;
 
 export const tutorials = [
 	{
-		text: `Try using W, A, S, D to move to the X mark`,
+		text: `Try using W, A, S, D and move to the X mark. You can also hold Shift to move faster`,
 		isComplete: (tank: Tank) => {
 			return isAround(tank.body.position.x, 450) &&  isAround(tank.body.position.y, 100);
 		}
@@ -25,7 +25,7 @@ export const tutorials = [
 	{
 		text: `You can switch tank by standing on the S symbol and press SPACE`,
 		isComplete: (tank: Tank) => {
-			return false;
+			return tank.body.position.x > 850;
 		}
 	}
 ];

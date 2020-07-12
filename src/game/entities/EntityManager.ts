@@ -1,6 +1,8 @@
 import { Entity } from './Entity';
 import { engine } from '../PhysicEngine';
 import { Events, World } from 'matter-js';
+import { route } from 'preact-router';
+import { Scene } from '../../components/routes';
 
 Events.on(engine, 'collisionStart', ({ pairs }) => {
 	for (let i = 0; i < pairs.length; i++) {
@@ -20,6 +22,15 @@ const tobeRemoves = new Set<Entity>();
 
 Events.on(engine, 'beforeUpdate', () => {
 	entities.forEach(entity => entity.update());
+
+	let tankLeft = 0;
+	entities.forEach(entity => {
+		if (entity.body.label === 'TANK')
+			tankLeft++;
+	});
+
+	if (tankLeft === 1)
+		route(Scene.Victory);
 });
 
 Events.on(engine, 'afterUpdate', () => {

@@ -8,6 +8,8 @@ import { attachMobControl } from './MobController';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
+import { route, getCurrentUrl } from 'preact-router';
+import { Scene } from '../components/routes';
 
 export function loadLevel() {
 	// TODO: Implement this properly
@@ -56,6 +58,8 @@ export class Level {
 	static current: Level | undefined;
 	levelData: LevelData;
 	decorations: Decoration[];
+	deathCount: number = 0;
+	startTime: number;
 
 	constructor(data: LevelData) {
 		this.levelData = data;
@@ -63,6 +67,8 @@ export class Level {
 	}
 
 	start() {
+		route(Scene.Tutorial);
+		this.startTime = Date.now();
 		Level.current = this;
 		EntityManager.removeAll();
 		this.decorations = [];
@@ -79,7 +85,7 @@ export class Level {
 			EntityManager.add(
 				new Wall(        width / 2, -tileScale, width + tileScale * 3,          tileScale),
 				new Wall(       -tileScale, height / 2,             tileScale, height + tileScale),
-				new Wall(width + tileScale, height / 2,             tileScale, height + tileScale),
+				new Wall(            width, height / 2,             tileScale, height + tileScale),
 				new Wall(        width / 2, height    , width + tileScale * 3,          tileScale),
 			);
 		}
@@ -102,7 +108,9 @@ export class Level {
 						break;
 					case 'M':
 					case 'A':
-					case 'D': {
+					case 'D':
+					case 'B':
+					case 'F': {
 						const tank = createTankFromType(x, y, map[i] as TankType);
 						EntityManager.add(tank);
 						attachMobControl(tank);
@@ -110,12 +118,6 @@ export class Level {
 					}
 					case 'C':
 						this.decorations.push(new Garage(x, y));
-						break;
-					case 'B':
-						// TODO: Create the mini-boss
-						break;
-					case 'F':
-						// TODO: Create the final-boss
 						break;
 					case '+':
 						// TODO: Spawn the repair pack
@@ -145,6 +147,14 @@ export class Level {
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
+
+		if (getCurrentUrl() === Scene.Victory) {
+			ctx.fillStyle = '#f5b342';
+			ctx.textAlign = 'center';
+			ctx.font = '56px Arial';
+			ctx.fillText('You Win!', globalCanvasWidth / 2, globalCanvasHeight / 2);
+			return;
+		}
 
 		// Setup camera
 		const tank = getControlledTank()!;
@@ -182,7 +192,10 @@ export class Level {
 		);
 
 		ctx.restore();
+
 		ctx.fillStyle = '#fff';
-		ctx.fillText(tank.body.position.x.toFixed(2) + " " + tank.body.position.y.toFixed(2), 50, 50);
+		ctx.font = '24px Courier';
+		ctx.fillText(`Death Count: ${this.deathCount}`, 0, 24);
+		ctx.fillText(`Play time  : ${((Date.now() - this.startTime) / 1000).toFixed(2)}`, 0, 48);
 	}
 }

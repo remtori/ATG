@@ -5,6 +5,7 @@ import { getControlledTank } from "./TankController";
 
 let controlledMobs: Tank[] = [];
 export function attachMobControl(tank: Tank) {
+	tank.nerf = 0.5;
 	controlledMobs.push(tank);
 }
 
@@ -19,7 +20,7 @@ Events.on(engine, 'beforeUpdate', function() {
 
 		const sqrDist = dir.x * dir.x + dir.y * dir.y;
 
-		if (sqrDist > 1000 * 1000)
+		if (sqrDist > 800 * 800)
 			continue;
 
 		if (sqrDist > 200 * 200)
