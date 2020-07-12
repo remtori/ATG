@@ -2,6 +2,7 @@ import { DamageableEntity } from './DamageableEntity';
 import { Body, Bodies, Vector } from 'matter-js';
 import { TankShell, TankShellStats } from './TankShell';
 import { EntityManager } from './EntityManager';
+import { Level } from '../Level';
 
 const twoPI = Math.PI * 2;
 function clampAngle(angle: number): number {
@@ -119,6 +120,11 @@ export class Tank extends DamageableEntity {
 			this.cooldown -= this.stats.barrel.cdSpeed;
 			if (this.cooldown < 0)
 				this.cooldown = 0;
+		}
+
+		this.isInGarage = Level.current.getTileAt(this.body.position.x, this.body.position.y) === 'C';
+		if (this.isInGarage) {
+			this.health = this.stats.tank.health;
 		}
 	}
 

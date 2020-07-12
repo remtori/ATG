@@ -49,7 +49,7 @@ function init() {
 	Events.on(engine, "beforeUpdate", e => {
 		if (!tank || getCurrentUrl() === Scene.TankPicker) return;
 
-		if (keys[' '] && Level.current.getTileAt(tank.body.position.x, tank.body.position.y) === 'C') {
+		if (keys[' '] && tank.isInGarage) {
 			route(Scene.TankPicker);
 			return;
 		}
