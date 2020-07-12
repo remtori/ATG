@@ -52,3 +52,17 @@ export class PointingArrow extends Decoration {
 		ctx.restore();
 	}
 }
+
+export class Garage extends Decoration {
+
+	render(ctx: CanvasRenderingContext2D) {
+		ctx.font = '32px Arial';
+		ctx.strokeStyle = '#0f0';
+		ctx.fillStyle = '#0f0';
+		ctx.lineWidth = 4;
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, 25, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.fillText('S', this.x - 11, this.y + 12);
+	}
+}

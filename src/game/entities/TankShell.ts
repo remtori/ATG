@@ -54,7 +54,7 @@ export class TankShell extends DamageableEntity {
 
 	collideWith(other: Entity) {
 		super.collideWith(other);
-		if (other.body.label !== 'BULLET') {
+		if (other.body.label !== 'TILE') {
 			EntityManager.add(
 				new Explosion(this.body.position.x, this.body.position.y, this.stats.radius)
 			);

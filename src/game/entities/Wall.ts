@@ -9,7 +9,7 @@ export class Wall extends Entity {
 	h: number;
 
 	constructor(x: number, y: number, w: number, h: number) {
-		super(Bodies.rectangle(x, y, w, h, { isStatic: true, label: 'TILE' }));
+		super(Bodies.rectangle(x, y, w, h, { isStatic: true, label: 'WALL' }));
 		Object.assign(this, { x, y, w, h });
 	}
 

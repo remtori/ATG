@@ -2,7 +2,6 @@ import { DamageableEntity } from '../DamageableEntity';
 import { Body, Bodies, Vector } from 'matter-js';
 import { TankShell, TankShellStats } from './TankShell';
 import { EntityManager } from './EntityManager';
-import { BoundingRect } from './Entity';
 
 const twoPI = Math.PI * 2;
 function clampAngle(angle: number): number {
@@ -33,6 +32,7 @@ export class Tank extends DamageableEntity {
 	stats: TankStats;
 	cooldown: number = 0;
 	barrelAngle: number = 0;
+	isInGarage = false;
 
 	constructor(x: number, y: number, stats: TankStats) {
 		super(

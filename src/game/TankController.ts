@@ -2,6 +2,10 @@ import { Tank } from './entities/Tank';
 import { Events, Engine } from 'matter-js';
 import { engine } from './PhysicEngine';
 import { TankType, createTankFromType } from './TankFactory';
+import { Level } from './Level';
+import { route } from 'preact-router';
+import { Scene } from '../components/routes';
+import { EntityManager } from './entities/EntityManager';
 
 let tank: Tank | undefined;
 
@@ -40,6 +44,11 @@ function init() {
 	Events.on(engine, "beforeUpdate", e => {
 		if (!tank) return;
 
+		if (keys[' '] && Level.current.getTileAt(tank.body.position.x, tank.body.position.y) === 'C') {
+			route(Scene.TankPicker);
+			return;
+		}
+
 		if (keys['w'])
 			tank.move(1);
 		else if (keys['s'])
@@ -70,5 +79,8 @@ export function changeTankType(tankType: TankType) {
 	const newTank = createTankFromType(tank.body.position.x , tank.body.position.y, tankType);
 	newTank.barrelAngle = tank.barrelAngle;
 	newTank.body.angle = tank.body.angle;
+
+	EntityManager.add(newTank);
+	EntityManager.remove(tank);
 	tank = newTank;
 }

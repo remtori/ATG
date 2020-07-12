@@ -3,11 +3,10 @@ import { attachControl, getControlledTank } from './TankController';
 import { TankType, createTankFromType } from './TankFactory';
 import { BoundingRect } from './entities/Entity';
 import { Wall } from './entities/Wall';
-import { Marker, PointingArrow, Decoration } from './entities/Decorations';
+import { Marker, PointingArrow, Decoration, Garage } from './entities/Decorations';
 
 // @ts-ignore: Import default level statically via parcel
 import levelJson from '../../levels/l1.json';
-import { Garage } from './entities/Garage';
 
 export function loadLevel() {
 	// TODO: Implement this properly
@@ -53,6 +52,7 @@ function getRenderOrder(label: string): number {
 
 export class Level {
 
+	static current: Level | undefined;
 	levelData: LevelData;
 	decorations: Decoration[];
 
@@ -62,6 +62,7 @@ export class Level {
 	}
 
 	start() {
+		Level.current = this;
 		EntityManager.removeAll();
 		this.decorations.length = 0;
 
@@ -75,10 +76,10 @@ export class Level {
 			const height = mapHeight * tileScale;
 			// Build a border wall
 			EntityManager.add(
-				new Wall(width / 2 - tileScale / 2,                          0,     width,          tileScale),
-				new Wall(                        0, height / 2 - tileScale / 2, tileScale,             height),
-				new Wall(                    width,                 height / 2, tileScale, height + tileScale),
-				new Wall(width / 2 - tileScale / 2,                     height,     width,          tileScale),
+				new Wall(        width / 2,         -tileScale, width + tileScale * 3,          tileScale),
+				new Wall(       -tileScale, height / 2        ,             tileScale, height + tileScale * 3),
+				new Wall(width + tileScale, height / 2        ,             tileScale, height + tileScale * 3),
+				new Wall(        width / 2, height + tileScale, width + tileScale * 3,          tileScale),
 			);
 		}
 
@@ -101,12 +102,13 @@ export class Level {
 					case 'M':
 					case 'A':
 					case 'D': {
-						EntityManager.add(createTankFromType(x, y, map[i] as TankType));
+						const tank = createTankFromType(x, y, map[i] as TankType);
+						EntityManager.add(tank);
 						// TODO: Attach AI
 						break;
 					}
 					case 'C':
-						EntityManager.add(new Garage(x, y, tileScale));
+						this.decorations.push(new Garage(x, y));
 						break;
 					case 'B':
 						// TODO: Create the mini-boss
@@ -135,6 +137,10 @@ export class Level {
 				}
 			}
 		}
+	}
+
+	getTileAt(x: number, y: number) {
+		return this.levelData[Math.floor((y + 25) / 50)][Math.floor((x + 25) / 50)];
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
